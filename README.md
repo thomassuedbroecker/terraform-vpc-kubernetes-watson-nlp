@@ -89,7 +89,7 @@ export GROUP="tsuedbro"
 
 ### Step 4: Verify the global variables in the bash script automation 
 
-Inspect the bash automation [`create_vpc_kubernetes_cluster_with_terraform.sh`](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/terraform_setup/create_vpc_kubernetes_cluster_with_terraform.sh).
+Inspect the bash automation [`create_vpc_kubernetes_cluster_with_terraform.sh`](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/terraform_setup/create_vpc_kubernetes_cluster_with_terraform.sh) and ajust the values to your need.
 
 ```sh
 nano create_vpc_kubernetes_cluster_with_terraform.sh
@@ -154,14 +154,14 @@ export GROUP="tsuedbro"
 sh deploy-watson-nlp-to-kubernetes.sh
 ```
 
-The script does following steps:
+The script does following steps and link point to the relevant function in the bash script:
 
-1. Log on to IBM Cloud with an IBM Cloud API key.
-2. It ensures that is connected to the cluster.
-3. It creates a `Docker Config File` which will be used for the container pull secret,
-4. It installs the helm chart for Watson NLP embed configured for REST API usage.
-5. It verifies that the container is running and invokes a REST API call inside the `runtime-container` of Watson NLP emded.
-6. It verifies that the exposed Kubernetes `URL` with a loadbalancer service is working and invokes a the same REST API call as before from the local machine.
+1. [Log on to IBM Cloud with an IBM Cloud API key.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L13)
+2. [It ensures that is connected to the cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L26)
+3. [It creates a `Docker Config File` which will be used for the container pull secret.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L37)
+4. [It installs the helm chart for Watson NLP embed configured for REST API usage.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L53)
+5. [It verifies that the container is running and invokes a REST API call inside the `runtime-container` of Watson NLP emded.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L94)
+6. [It verifies that the exposed Kubernetes `URL` with a loadbalancer service is working and invokes a the same REST API call as before from the local machine.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L124)
 
 * Example output:
 
@@ -233,7 +233,7 @@ http://localhost:8080/v1/watson.runtime.nlp.v1/NlpService/SyntaxPredict
 ...
 ```
 
-The image below shows the running container.
+The image below shows the running container on the Kubernetes cluster.
 
 ![](images/watson-nlp-kubernetes-01.png)
 
