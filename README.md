@@ -36,7 +36,7 @@ This is a simplified diagram of the created infrastructure with terraform.
 
 ### Prerequisites
 
-To use the  bash automation you need following tools to be installed on your local computer  
+To use the bash automation you need following tools to be installed on your local computer  
 
 * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 * Plugin VPC infrastructure
@@ -154,7 +154,7 @@ export GROUP="tsuedbro"
 sh deploy-watson-nlp-to-kubernetes.sh
 ```
 
-The script does following steps and link points to the relevant function in the bash automation:
+The script does following steps and the links are pointing to the relevant function in the bash automation:
 
 1. [Log on to IBM Cloud with an IBM Cloud API key.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L13)
 2. [It ensures that is connected to the cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L26)
