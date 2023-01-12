@@ -126,7 +126,7 @@ function verifyWatsonNLPLoadbalancer () {
     echo ""
     echo "*********************"
     echo "verifyWatsonNLP_loadbalancer"
-    echo "this can take up to 10 min"
+    echo "this could take up to 10 min"
     echo "*********************"
     echo ""
 
