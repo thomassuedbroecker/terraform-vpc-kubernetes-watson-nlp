@@ -100,7 +100,7 @@ function verifyWatsonNLPContainer () {
     echo ""
 
     export FIND="watson-nlp-container"
-    POD=$(kubectl get pods | grep $FIND | awk '{print $1;}')
+    POD=$(kubectl get pods -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $1;}')
     echo "Pod: $POD"
     # Needs to be verifed
     # COMMAND='''curl -X POST "http://localhost:8080/v1/watson.runtime.nlp.v1/NlpService/SyntaxPredict" -H "accept: application/json" -H "grpc-metadata-mm-model-id: syntax_izumo_lang_en_stock" -H "content-type: application/json" -d " { \"rawDocument\": { \"text\": \"It is so easy to embed Watson NLP in application. Very cool\" }}"'''
@@ -121,7 +121,67 @@ function verifyWatsonNLPContainer () {
     read ANY_VALUE
 }
 
-# ************ functions used in functions **************
+function verifyWatsonNLPLoadbalancer () {
+
+    echo ""
+    echo "*********************"
+    echo "verifyWatsonNLP_loadbalancer"
+    echo "this can take up to 10 min"
+    echo "*********************"
+    echo ""
+
+    verifyLoadbalancer
+
+    SERVICE=watson-nlp-container-vpc-nlb
+    EXTERNAL_IP=$(kubectl get svc $SERVICE | grep  $SERVICE | awk '{print $4;}')
+    echo "EXTERNAL_IP: $EXTERNAL_IP"
+    echo "Verify invocation of Watson NLP API from the local machine:"
+    curl -X POST "http://$EXTERNAL_IP:8080/v1/watson.runtime.nlp.v1/NlpService/SyntaxPredict" -H "accept: application/json" -H "grpc-metadata-mm-model-id: syntax_izumo_lang_en_stock" -H "content-type: application/json" -d '{ "rawDocument": { "text": "This is a test sentence." }}'
+}
+
+# ************ functions used internal **************
+
+
+function verifyLoadbalancer () {
+
+    echo ""
+    echo "*********************"
+    echo "verifyLoadbalancer"
+    echo "*********************"
+    echo ""
+
+    export max_retrys=10
+    j=0
+    array=("watson-nlp-container-vpc-nlb")
+    export STATUS_SUCCESS=""
+    for i in "${array[@]}"
+        do
+            echo ""
+            echo "------------------------------------------------------------------------"
+            echo "Check $i"
+            j=0
+            export FIND=$i
+            while :
+            do      
+            ((j++))
+            STATUS_CHECK=$(kubectl get svc $FIND -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $4;}')
+            echo "Status: $STATUS_CHECK"
+            if ([ "$STATUS_CHECK" != "$STATUS_SUCCESS" ] && [ "$STATUS_CHECK" != "<pending>" ]); then
+                    echo "$(date +'%F %H:%M:%S') Status: $FIND is created ($STATUS_CHECK)"
+                    echo "------------------------------------------------------------------------"
+                    break
+                elif [[ $j -eq $max_retrys ]]; then
+                    echo "$(date +'%F %H:%M:%S') Maybe a problem does exists!"
+                    echo "------------------------------------------------------------------------"
+                    exit 1              
+                else
+                    echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
+                    echo "------------------------------------------------------------------------"
+                fi
+                sleep 60
+            done
+        done
+}
 
 function verifyDeploment () {
 
@@ -145,7 +205,7 @@ function verifyDeploment () {
             while :
             do      
             ((j++))
-            STATUS_CHECK=$(kubectl get deployment $FIND | grep $FIND | awk '{print $1;}')
+            STATUS_CHECK=$(kubectl get deployment $FIND -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $1;}')
             echo "Status: $STATUS_CHECK"
             if [ "$STATUS_CHECK" = "$STATUS_SUCCESS" ]; then
                     echo "$(date +'%F %H:%M:%S') Status: $FIND is created"
@@ -186,7 +246,7 @@ function verifyPod () {
             while :
             do      
             ((j++))
-            STATUS_CHECK=$(kubectl get pods | grep $FIND | awk '{print $2;}')
+            STATUS_CHECK=$(kubectl get pods -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $2;}')
             echo "Status: $STATUS_CHECK"
             if [ "$STATUS_CHECK" = "$STATUS_SUCCESS" ]; then
                     echo "$(date +'%F %H:%M:%S') Status: $FIND is created"
@@ -219,5 +279,7 @@ createDockerCustomConfigFile
 installHelmChart
 
 verifyWatsonNLPContainer
+
+verifyWatsonNLPLoadbalancer
 
 #uninstallHelmChart

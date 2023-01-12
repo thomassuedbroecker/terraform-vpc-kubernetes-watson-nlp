@@ -38,19 +38,19 @@ This is a simplified diagram of the created infrastructure with terraform.
 
 To use the  bash automation you need following tools to be installed on your local computer  
 
-* IBM Cloud CLI
+* [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 * Plugin VPC infrastructure
 * Plugin Container-service
-* Terraform 
-* Helm
-* Kubectl
+* [Terraform](https://www.terraform.io/)
+* [Helm](https://helm.sh/)
+* [kubectl](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/)
 
 ## Example setup
 
 The example setup contains two bash automations:
 
-* One for Terraform
-* One for Helm
+* [One for Terraform](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/tree/main/code/terraform_setup)
+* [One for Helm](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/tree/main/code/helm_setup)
 
 ### Step 1: Clone the repo
 
@@ -89,7 +89,7 @@ export GROUP="tsuedbro"
 
 ### Step 4: Verify the global variables in the bash script automation 
 
-Inspect the bash automation.
+Inspect the bash automation [`create_vpc_kubernetes_cluster_with_terraform.sh`](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/terraform_setup/create_vpc_kubernetes_cluster_with_terraform.sh).
 
 ```sh
 nano create_vpc_kubernetes_cluster_with_terraform.sh
@@ -123,7 +123,7 @@ Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
 *********************************
 ```
 
-## Deploy Watson NLP with helm
+## Deploy Watson NLP embed with helm
 
 ### Step 1: Navigate to the `helm_setup`
 
@@ -153,6 +153,15 @@ export GROUP="tsuedbro"
 ```sh
 sh deploy-watson-nlp-to-kubernetes.sh
 ```
+
+The script does following steps:
+
+1. Log on to IBM Cloud with an IBM Cloud API key.
+2. It ensures that is connected to the cluster.
+3. It creates a `Docker Config File` which will be used for the container pull secret,
+4. It installs the helm chart for Watson NLP embed configured for REST API usage.
+5. It verifies that the container is running and invokes a REST API call inside the `runtime-container` of Watson NLP emded.
+6. It verifies that the exposed Kubernetes `URL` with a loadbalancer service is working and invokes a the same REST API call as before from the local machine.
 
 * Example output:
 
