@@ -1,0 +1,57 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: watson-nlp-container 
+  namespace: {{ .Values.default_namespace }}
+spec: 
+  selector: 
+    matchLabels: 
+      app: watson-nlp-container 
+  replicas: 1 
+  template: 
+    metadata: 
+      labels: 
+        app: watson-nlp-container 
+    spec: 
+      initContainers:
+      - name: english-syntax-model
+        image: {{ .Values.watson_english_syntax_model }}
+        volumeMounts:
+        - name: model-directory
+          mountPath: "/app/models"
+        env:
+        - name: ACCEPT_LICENSE
+          value: 'true'
+      - name: english-tone-model
+        image: {{ .Values.watson_english_ton_model }}
+        volumeMounts:
+        - name: model-directory
+          mountPath: "/app/models"
+        env:
+        - name: ACCEPT_LICENSE
+          value: 'true'
+      containers: 
+      - name: watson-nlp-container 
+        image: {{ .Values.watson_runtime_image }}
+        env:
+        - name: ACCEPT_LICENSE
+          value: "true"
+        - name: LOCAL_MODELS_DIR
+          value: "/app/models"
+        resources: 
+          requests: 
+            memory: "4Gi" 
+            cpu: "1000m" 
+          limits: 
+            memory: "8Gi" 
+            cpu: "2000m"
+        ports: 
+        - containerPort: 8080 
+        volumeMounts:
+        - name: model-directory
+          mountPath: "/app/models"
+      imagePullSecrets:
+      - name: ibm-entitlement-key
+      volumes:
+      - name: model-directory
+        emptyDir: {}
