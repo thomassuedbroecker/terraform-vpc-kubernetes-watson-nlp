@@ -1,4 +1,4 @@
-# terraform-vpc-kubernetes-watson-nlp
+# Run Watson NLP for Embed on an IBM Cloud Kubernetes cluster
 
 This example project has two objectives.
 
