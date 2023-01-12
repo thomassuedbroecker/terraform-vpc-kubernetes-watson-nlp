@@ -5,7 +5,9 @@ This example project has two objectives.
 * Create an IBM Cloud Kubernetes cluster in a [`Virtual Private Cloud` (VPC) environment](https://www.ibm.com/topics/vpc) with [Terraform](https://www.terraform.io/)
 * Deploy [Watson NLP for embed`](https://www.ibm.com/docs/en/watson-libraries?topic=watson-natural-language-processing-library-embed-home) to the created cluster with [Helm](https://helm.sh/)
 
-The example project reuses code from the  `https://github.com/thomassuedbroecker/terraform-vpc-kubernetes` project.
+The example project reuses code from project [`Use Terraform to create a VPC and a Kubernetes Cluster on IBM Cloud`](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes).
+
+> Visit the related blog post [`Run Watson NLP for Embed on an IBM Cloud Kubernetes cluster in a Virtual Private Cloud environment`](https://suedbroecker.net/2023/01/12/run-watson-nlp-for-embed-on-an-ibm-cloud-kubernetes-cluster-in-a-virtual-private-cloud-environment/).
 
 ### Simplified IBM Cloud architecture diagram
 
@@ -36,7 +38,7 @@ This is a simplified diagram of the created infrastructure with terraform.
 
 ### Prerequisites
 
-To use the bash automation you need following tools to be installed on your local computer  
+To use the bash automation you need to have  following tools to be installed on your local computer: 
 
 * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 * Plugin VPC infrastructure
