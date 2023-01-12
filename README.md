@@ -154,7 +154,7 @@ export GROUP="tsuedbro"
 sh deploy-watson-nlp-to-kubernetes.sh
 ```
 
-The script does following steps and link point to the relevant function in the bash script:
+The script does following steps and link points to the relevant function in the bash automation:
 
 1. [Log on to IBM Cloud with an IBM Cloud API key.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L13)
 2. [It ensures that is connected to the cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L26)
