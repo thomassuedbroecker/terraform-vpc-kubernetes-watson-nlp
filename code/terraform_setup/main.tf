@@ -22,6 +22,7 @@ resource "ibm_is_subnet" "subnet1" {
   name                     = local.SUBNET1
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE1
+  public_gateway           = ibm_is_public_gateway.pgw1.id
   total_ipv4_address_count = 256
 }
 
