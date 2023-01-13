@@ -22,6 +22,7 @@ Terraform will create and configure on IBM Cloud:
     
     * 1 x Access control list
     * 1 x Routing table
+    * 1 x Public gateway
     * 1 x Virtual Private Endpoint Gateway (created by the Kubernetes Service creation)
     * 1 x Public load balancer (created by the Kubernetes Service creation)
 

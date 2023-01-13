@@ -5,6 +5,7 @@
 locals {
   ZONE1 = "${var.region}-1"
   SUBNET1 = "subnet-${var.vpc_name}-1"
+  PWG1= "pwg-${var.vpc_name}-1"
   KMS1= "${var.cluster_name}-kms"
   KMS2= "${var.cluster_name}-kms-key"
 }
@@ -22,6 +23,12 @@ resource "ibm_is_subnet" "subnet1" {
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE1
   total_ipv4_address_count = 256
+}
+
+resource "ibm_is_public_gateway" "pgw1" {
+  name = local.PWG1
+  vpc  = ibm_is_vpc.example.id
+  zone = local.ZONE1
 }
 
 data "ibm_resource_group" "resource_group" {
