@@ -158,7 +158,7 @@ function verifyLoadbalancer () {
         do
             echo ""
             echo "------------------------------------------------------------------------"
-            echo "Check $i"
+            echo "Check for $i: ($j) from max retrys ($max_retrys)"
             j=0
             export FIND=$i
             while :
@@ -199,12 +199,13 @@ function verifyDeploment () {
         do
             echo ""
             echo "------------------------------------------------------------------------"
-            echo "Check $i"
+            echo "Check for ($i)"
             j=0
             export FIND=$i
             while :
             do      
             ((j++))
+            echo "($j) from max retrys ($max_retrys)"
             STATUS_CHECK=$(kubectl get deployment $FIND -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $1;}')
             echo "Status: $STATUS_CHECK"
             if [ "$STATUS_CHECK" = "$STATUS_SUCCESS" ]; then
@@ -240,12 +241,13 @@ function verifyPod () {
         do
             echo ""
             echo "------------------------------------------------------------------------"
-            echo "Check $i"
+            echo "Check for ($i)"
             j=0
             export FIND=$i
             while :
-            do      
+            do     
             ((j++))
+            echo "($j) from max retrys ($max_retrys)"
             STATUS_CHECK=$(kubectl get pods -n $DEFAULT_NAMESPACE | grep $FIND | awk '{print $2;}')
             echo "Status: $STATUS_CHECK"
             if [ "$STATUS_CHECK" = "$STATUS_SUCCESS" ]; then
