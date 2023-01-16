@@ -161,10 +161,10 @@ The script does following steps and the links are pointing to the relevant funct
 
 1. [Log on to IBM Cloud with an IBM Cloud API key.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L13)
 2. [It ensures that is connected to the cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L26)
-3. [It creates a `Docker Config File` which will be used for the container pull secret.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L37)
+3. [It creates a `Docker Config File` which will be used to create a pull secret.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L37)
 4. [It installs the Helm chart for Watson NLP embed configured for REST API usage.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L53)
 5. [It verifies that the container is running and invokes a REST API call inside the `runtime-container` of Watson NLP emded.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L94)
-6. [It verifies that the exposed Kubernetes `URL` with a load load balancer service is working and invokes a the same REST API call as before from the local machine.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L124)
+6. [It verifies that the exposed Kubernetes `URL` with a `load balancer service` is working and invokes a the same REST API call as before from the local machine.](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kubernetes.sh#L124)
 
 * Example output:
 
