@@ -10,7 +10,7 @@ export TF_VAR_kubernetes_pricing="tiered-pricing"
 export TF_VAR_resource_group=$GROUP
 export TF_VAR_vpc_name="watson-nlp-tsuedbro"
 export TF_VAR_region=$REGION
-export TF_VAR_kube_version="1.25.5"
+export TF_VAR_kube_version="1.25.6"
 export TF_VAR_cluster_name="watson-nlp-tsuedbro"
 
 # **************** logon with IBM Cloud CLI **************** 
@@ -76,4 +76,4 @@ read ANYKEY
 echo "*********************************"
 echo ""
 echo "7. Remove VPC infrastructure resources"
-#terraform destroy
+terraform destroy
